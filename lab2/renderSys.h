@@ -5,26 +5,30 @@
 
 #include <string>
 
+#include <SDL.h>
 
-
+#include "json.hpp"
 
 
 class RenderSystem {
 private:
+	SDL_Window* window;
+	SDL_Renderer* renderer;
 	std::string name = " ";
-	int width = 0;
+	int width;
 	int height = 0;
-	bool fullscreen = true;
+	bool fullscreen = false;
 
 
 public:
 	RenderSystem();
 	~RenderSystem();
 
-	void Initialize();
+	void Initialize(const std::string& settingsFilePath);
 	void Destroy();
 	void Update();
 	void Load();
+	
 
 	// Getter and Setter methods (if needed)
 	std::string GetName() const;

@@ -2,45 +2,85 @@
 #include <fstream>
 #include <iostream>
 #include "json.hpp"
-#include "renderSys.h"
+#include "SDL.h"
 
-Engine::Engine() {
+
+Engine::Engine() : running(false) {
 	renderSystem = new RenderSystem();
+	inputManager = new InputManager();
+	assetManager = new AssetManager();
+	sceneManager = new SceneManager();
 
 };
 
 Engine::~Engine() {
-	Destroy();
+	
+	std::cout << "ENGINE Destroyed" << std::endl;
+
 };
 
 void Engine::Initialize() {
 	LoadSettings("GameSettings.JSON");
-	std::cout << "engine initilized" << std::endl;
-	renderSystem->Initialize();
+	
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+	
+		SDL_Log("UNABLE TO INIT SDL",SDL_GetError);
+
+		return;
+	}
 
 
 
+	renderSystem->Initialize("GameSettings.JSON");
+	inputManager->initilize();
+	assetManager->initilize();
+	sceneManager->Initilize();
+	sceneManager->Load("GameLevelExample.JSON");
+
+	running = true;
 
 };
 
 void Engine::Destroy() {
 
+	sceneManager->Destroy();
+	assetManager->Destroy();
+	inputManager->Destroy();
 	renderSystem->Destroy();
 
-
+	delete sceneManager;
+	delete assetManager;
+	delete inputManager;
 	delete renderSystem;
+
+	SDL_Quit();
 }
 
 void Engine::GameLoop() {
-	bool isRunning = true;
-	while (isRunning) {
-		renderSystem->Update();
-		// Check some other conditions
-		if (!isRunning)
-		{
-			isRunning = false;
+	SDL_Event event;
+
+	
+	
+		while (SDL_PollEvent(&event)) {
+		
+			if (event.type == SDL_QUIT) {
+			
+				
+
+			}
+
+			inputManager->Update();
 		}
-	}
+
+		sceneManager->Update();
+		assetManager->Update();
+		renderSystem->Update();
+
+
+
+		renderSystem->Load();
+
+	
 }
 
 class RectInt
@@ -48,8 +88,6 @@ class RectInt
 public:
 	int width = 0;
 	int height = 0;
-	int x = 0;
-	int y = 0;
 	std::string name;
 
 public:
@@ -62,8 +100,7 @@ void RectInt::Load(json::JSON& _json)
 {
 	if (_json.hasKey("width")) width = _json["width"].ToInt();
 	if (_json.hasKey("height")) height = _json["height"].ToInt();
-	if (_json.hasKey("x")) width = _json["x"].ToInt();
-	if (_json.hasKey("y")) width = _json["y"].ToInt();
+	
 
 
 }
@@ -72,8 +109,7 @@ void RectInt::Display()
 {
 	std::cout << "width: " << width << std::endl;
 	std::cout << "height: " << height << std::endl;
-	std::cout << "x: " << x << std::endl;
-	std::cout << "y: " << y << std::endl;
+	
 }
 class GameSettings
 {
@@ -87,7 +123,7 @@ public:
 		if (_json["Engine"].hasKey("DefaultFile"))
 		{
 			defaultFile = _json["Engine"]["DefaultFile"].ToString();
-			std::cout << defaultFile << std::endl;
+			
 		}
 		if (_json["RenderSystem"].hasKey("Name"))
 		{
@@ -121,6 +157,11 @@ public:
 
 void Engine::Load() {
 	// Load assets, scenes, or other required resources
+
+
+	assetManager->Load();
+
+
 }
 
 void Engine::LoadSettings(const std::string& filepath) {

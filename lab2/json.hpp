@@ -158,6 +158,7 @@ namespace json {
 			default:
 				Internal = other.Internal;
 			}
+
 			Type = other.Type;
 		}
 
