@@ -2,19 +2,22 @@
 #include <iostream>
 #include "json.hpp"
 
-Scene::Scene() {
+Scene::Scene() 
+{
 	
 	std::cout << "SCENE CREATED" << std::endl;
 
 }
 
-Scene::~Scene() {
+Scene::~Scene() 
+{
 	
 	std::cout << "SCENE Destroyed" << std::endl;
 
 }
 
-void Scene::initilize() {
+void Scene::initilize() 
+{
 
 	std::cout << "SCENE INITIALIZED" << std::endl;
 
@@ -22,51 +25,58 @@ void Scene::initilize() {
 
 }
 
-void Scene::Destroy() {
+void Scene::Destroy() 
+{
 
 	std::cout << "SCENE DESTROYED" << std::endl;
-	for (Entity* entity : entities) {
-		delete entity;
-	}
+	Entity* entity = new Entity();
+
+	entity->Destroy();
 	entities.clear();
 
 }
 
-void Scene::Update() {
+void Scene::Update() 
+{
 
 	std::cout << "SCENE UPDATED" << std::endl;
-	for (Entity* entity : entities) {
-		entity->Update();
-	}
+	Entity* entity = new Entity();
+
+	entity->Update();
+	
 
 
 }
 
-void Scene::AddEntry(Entity* _entity) {
+void Scene::AddEntry(Entity* _entity) 
+{
 
 	entities.push_back(_entity);
 
 }
 
-void Scene::RemoveEntry(Entity* _entity) {
+void Scene::RemoveEntry(Entity* _entity) 
+{
 	entities.remove(_entity);
 
 }
 
 
-void Scene::Load(json::JSON& _json) {
+void Scene::Load(json::JSON& _json) 
+{
 	
-	if (_json.hasKey("Entities")) {
+	if (_json.hasKey("name")) {
 	
-		for (auto& entity : _json["Entities"].ArrayRange()) {
-		
-			std::string entityName = entity["Name"].ToString();
-			std::cout << "Entity Name: " << entityName << std::endl;
+		std::string name;
 
-			Component* comp = new Component();
-			comp->Load(entity);
+		if (_json.hasKey("name")) {
+			name = _json["name"].ToString();
+			std::cout << "Scene Name: " << name << std::endl;
 
+			Entity* entites = new Entity();
+			entites->Load(_json);
 		}
+		
 
 	}
 

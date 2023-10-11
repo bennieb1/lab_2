@@ -3,39 +3,49 @@
 #include <SDL.h>
 
 
-InputManager::InputManager() {
+InputManager::InputManager() 
+{
 
-	//construct logic here
+	std::cout << "new InputManager" << std::endl;
 
 }
 
-InputManager::~InputManager() {
+InputManager::~InputManager() 
+{
 
 	std::cout << " InputManager destroyed " << std::endl;
 	
 }
 
-void InputManager::initilize() {
+void InputManager::initilize()
+{
+
 	std::cout << "INPUTMANAGER INITIALIZED" << std::endl;
-}
-
-void InputManager::Load() {
 
 }
 
-void InputManager::Update() {
+void InputManager::Load()
+{
+
+	std::cout << "Load InputManager" << std::endl;
+
+}
+
+void InputManager::Update() 
+{
 
 	std::cout << "INPUTMANAGER UPDATED" << std::endl;
-	// Handle input events here, such as key presses, mouse movements, etc.
+	
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
-		// Handle specific events if necessary
+		
 	}
 
 
 }
 
-void InputManager::Destroy() {
+void InputManager::Destroy() 
+{
 
 	std::cout << "INPUTMANAGER DESTROYED" << std::endl;
 

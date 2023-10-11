@@ -3,36 +3,43 @@
 
 
 
-AssetManager::AssetManager() {
+AssetManager::AssetManager() 
+{
 
-	//construct logic here
+	std::cout << "new AssetManager" << std::endl;
 
 }
 
-AssetManager::~AssetManager() {
+AssetManager::~AssetManager() 
+{
 
 	std::cout << "AssetManager destroyed " << std::endl;
 	
 }
 
-void AssetManager::initilize() {
+void AssetManager::initilize() 
+{
 
 	std::cout << "Assets Initilized" << std::endl;
 
 }
 
-void AssetManager::Load() {
+void AssetManager::Load() 
+{
 
 	std::cout << "Load assetManager" << std::endl;
+
 }
 
-void AssetManager::Update() {
+void AssetManager::Update()
+{
 		
 	std::cout << "Update assetManager" << std::endl;
 
 }
 
-void AssetManager::Destroy() {
+void AssetManager::Destroy() 
+{
 
 	
 	std::cout << "AssetManager destroyed " << std::endl;

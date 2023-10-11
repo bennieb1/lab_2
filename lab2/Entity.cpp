@@ -3,48 +3,86 @@
 #include <string>
 
 
-Entity::Entity()  {}
+Entity::Entity()  
+{
 
-// Destructor
-Entity::~Entity() {
-    Destroy();
+    std::cout << "new Entity" << std::endl;
+
 }
 
-// Method to initialize the entity
-void Entity::Initialize() {
-    // Add initialization code here
+
+Entity::~Entity() 
+{
+
+    std::cout << "Entity Destroyed" << std::endl;
+
 }
 
-// Method to destroy the entity
-void Entity::Destroy() {
-    for (Component* component : components) {
-        delete component; // Freeing the memory allocated for components
-    }
+
+void Entity::Initialize() 
+{
+    std::cout << " Entity Initalized" << std::endl;
+
+}
+
+void Entity::Destroy() 
+{
+
+
+    std::cout << "ENTITY DESTROYED" << std::endl;
+
+    Component* comp = new Component();
+
+    comp->Destroy();
     components.clear();
 }
 
-// Method to add a component to the entity
-void Entity::AddComponent(Component* component) {
+
+void Entity::AddComponent(Component* component)
+{
     components.push_back(component);
 }
 
-// Method to remove component from entity
-void Entity::RemoveComponent(Component* component) {
+
+void Entity::RemoveComponent(Component* component)
+{
+   
     components.remove(component);
     delete component;
 }
 
-// Method to update entity
+
 void Entity::Update() {
-    // Add update code here
+
+    for (Component* comp : components) 
+    {
+        comp->Update();
+    }
+
 }
 
-// Method to get the name of the entity
-std::string Entity::GetName() const {
+
+std::string Entity::GetName() const 
+{
+
     return name;
+
 }
 
-// Load method (not defined in the class diagram, so it's left empty here)
-void Entity::Load(json::JSON& _json) {
-    // Add loading code here
+void Entity::Load(json::JSON& _json) 
+{
+
+
+    for (auto& entity : _json["Entities"].ArrayRange()) {
+
+             std::string entityName = entity["Name"].ToString();
+             std::cout << "Entity Name: " << entityName << std::endl;
+
+             Component* comp = new Component();
+             comp->Load(entity);
+
+    
+    }
+
+
 }

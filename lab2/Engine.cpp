@@ -5,7 +5,9 @@
 #include "SDL.h"
 
 
-Engine::Engine() : running(false) {
+Engine::Engine() : running(false)
+{
+
 	renderSystem = new RenderSystem();
 	inputManager = new InputManager();
 	assetManager = new AssetManager();
@@ -13,13 +15,16 @@ Engine::Engine() : running(false) {
 
 };
 
-Engine::~Engine() {
+Engine::~Engine()
+{
 	
 	std::cout << "ENGINE Destroyed" << std::endl;
 
 };
 
-void Engine::Initialize() {
+void Engine::Initialize()
+{
+
 	LoadSettings("GameSettings.JSON");
 	
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -41,7 +46,8 @@ void Engine::Initialize() {
 
 };
 
-void Engine::Destroy() {
+void Engine::Destroy() 
+{
 
 	sceneManager->Destroy();
 	assetManager->Destroy();
@@ -54,9 +60,12 @@ void Engine::Destroy() {
 	delete renderSystem;
 
 	SDL_Quit();
+
 }
 
-void Engine::GameLoop() {
+void Engine::GameLoop()
+{
+
 	SDL_Event event;
 
 	
@@ -71,7 +80,7 @@ void Engine::GameLoop() {
 
 			inputManager->Update();
 		}
-
+		
 		sceneManager->Update();
 		assetManager->Update();
 		renderSystem->Update();
@@ -155,16 +164,19 @@ public:
 	}
 };
 
-void Engine::Load() {
-	// Load assets, scenes, or other required resources
+void Engine::Load() 
+{
+	
 
-
+	
 	assetManager->Load();
 
 
 }
 
-void Engine::LoadSettings(const std::string& filepath) {
+void Engine::LoadSettings(const std::string& filepath)
+{
+
 	std::ifstream inputStream(filepath);
 	std::string str((std::istreambuf_iterator<char>(inputStream)), std::istreambuf_iterator<char>());
 	json::JSON document = json::JSON::Load(str);

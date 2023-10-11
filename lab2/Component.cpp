@@ -2,12 +2,14 @@
 #include <iostream>
 
 
-Component::Component() : id(0) {
+Component::Component() : id(0) 
+{
 
 	std::cout << "COMPONENT CREATED" << std::endl;
 }
 
-Component::~Component() {
+Component::~Component() 
+{
 
 	std::cout << "COMPONENT Destroyed" << std::endl;
 
@@ -15,14 +17,16 @@ Component::~Component() {
 }
 
 
-void Component::initilize() {
+void Component::initilize()
+{
 
 
 	std::cout << "COMPONENT INITIALIZED" << std::endl;
 
 }
 
-void Component::Destroy() {
+void Component::Destroy() 
+{
 
 	std::cout << "COMPONENT DESTROYED" << std::endl;
 
@@ -30,20 +34,23 @@ void Component::Destroy() {
 }
 
 
-int Component::GetComponentId() {
+int Component::GetComponentId() 
+{
 
 	return 0;
 
 }
 
 
-void Component::Update() {
+void Component::Update() 
+{
 
 	std::cout << "COMPONENT UPDATED" << std::endl;
 
 }
 
-void Component::Load(json::JSON& _json) {
+void Component::Load(json::JSON& _json) 
+{
 
 
 	if (_json.hasKey("Components")) {

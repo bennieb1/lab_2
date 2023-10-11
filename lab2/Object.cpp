@@ -3,20 +3,27 @@
 
 
 
-Object::Object() {
+Object::Object()
+{
+
     std::cout << "Object constructed."<<std::endl;
 
 }
 
-Object::~Object() {
+Object::~Object() 
+{
+
     std::cout << "Object destroyed."<<std::endl;
 
 }
 
-void Object::Destroy() {
+void Object::Destroy()
+{
+
+
     if (initilized) {
         std::cout << "Object destroyed by Destroy method.\n";
-        // Add your specific destruction logic here
+      
         initilized = false;
     }
     else {
@@ -25,10 +32,13 @@ void Object::Destroy() {
 
 }
 
-void Object::initilize() {
+void Object::initilize()
+{
+
+
     if (!initilized) {
         std::cout << "Object initialized.\n";
-        // Add your specific initialization logic here
+      
         initilized = true;
     }
     else {
@@ -38,16 +48,20 @@ void Object::initilize() {
 }
 
 
-bool Object::isInitilized() {
+bool Object::isInitilized() 
+{
+
     return initilized;
 
 }
 
 
-void Object::Load() {
+void Object::Load() 
+{
+
     if (initilized) {
         std::cout << "Loading object...\n";
-        // Add your specific loading logic here
+        
     }
     else {
         std::cout << "Object not initialized. Cannot load.\n";
