@@ -54,7 +54,7 @@ void Scene::RemoveEntry(Entity* _entity) {
 }
 
 
-void Scene::Load(json::JSON& _json) {//gets scene from scenemanager
+void Scene::Load(json::JSON& _json) {
 	
 	if (_json.hasKey("Entities")) {
 	
